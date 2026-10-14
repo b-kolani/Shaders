@@ -10,7 +10,7 @@ int main()
     );
 
     sf::RectangleShape  rectangle;
-    rectangle.setFillColor(sf::Color::Red);
+    // rectangle.setFillColor(sf::Color::Red);
     rectangle.setSize(sf::Vector2f(300.f, 200.f));
     rectangle.setPosition(sf::Vector2f(250.f, 200.f));
 
@@ -39,14 +39,24 @@ int main()
     trianglesVertices[5].position = sf::Vector2f(250.f, 200.f); // TOP LEFT
     trianglesVertices[5].color = sf::Color::Red;
 
-    // Shhader Object
-    std::cout << std::filesystem::current_path() << std::endl;
+    // Shader Object
+    // std::cout << std::filesystem::current_path() << std::endl;
 
-    const std::filesystem::path fragmentShaderFilename = "./01_basic/shaders/red.frag";
+    const std::filesystem::path vertexShaderFilename = 
+            "./01_basic/shaders/color.vert";
+
+    const std::filesystem::path fragmentShaderFilename = 
+            "./01_basic/shaders/red.frag";
+
     sf::Shader  shaderObj(
-        fragmentShaderFilename,
-        sf::Shader::Type::Fragment
+        vertexShaderFilename,
+        fragmentShaderFilename
     );
+
+    // Transmettre nos variables uniformes
+    // au shader
+    shaderObj.setUniform("top", 250.0f);
+    shaderObj.setUniform("height", 200.0f);
     
     sf::RenderStates renderStates;
     renderStates.shader = &shaderObj;
