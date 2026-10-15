@@ -19,24 +19,32 @@ int main()
         6
     );
 
+    // Définir la géométrie une seule fois
+    const float rectangleTop = 200.f;
+    const float rectangleLeft = 250.f;
+    const float rectangleWidth = 300.f;
+    const float rectangleHeight = 300.f;
+    const float rectangleRight = rectangleLeft + rectangleWidth;
+    const float rectangleBottom = rectangleTop + rectangleHeight;
+
     // --- FIRST TRIANGLE (Vertices 0, 1, 2) ---
-    trianglesVertices[0].position = sf::Vector2f(250.f, 200.f); // TOP LEFT
+    trianglesVertices[0].position = sf::Vector2f(rectangleLeft, rectangleTop); // TOP LEFT
     trianglesVertices[0].color = sf::Color::Red;
 
-    trianglesVertices[1].position = sf::Vector2f(550.f, 400.f); // BOTTOM RIGHT
+    trianglesVertices[1].position = sf::Vector2f(rectangleRight, rectangleBottom); // BOTTOM RIGHT
     trianglesVertices[1].color = sf::Color::Yellow;
 
-    trianglesVertices[2].position = sf::Vector2f(250.f, 400.f); // BOTTOM LEFT
+    trianglesVertices[2].position = sf::Vector2f(rectangleLeft, rectangleBottom); // BOTTOM LEFT
     trianglesVertices[2].color = sf::Color::Green;
 
     // --- SECOND TRIANGLE (Vertices 3, 4, 5) ---
-    trianglesVertices[3].position = sf::Vector2f(550.f, 200.f); // TOP RIGHT
+    trianglesVertices[3].position = sf::Vector2f(rectangleRight, rectangleTop); // TOP RIGHT
     trianglesVertices[3].color = sf::Color::Blue;
 
-    trianglesVertices[4].position = sf::Vector2f(550.f, 400.f); // BOTTOM RIGTH
+    trianglesVertices[4].position = sf::Vector2f(rectangleRight, rectangleBottom); // BOTTOM RIGTH
     trianglesVertices[4].color = sf::Color::Yellow;
 
-    trianglesVertices[5].position = sf::Vector2f(250.f, 200.f); // TOP LEFT
+    trianglesVertices[5].position = sf::Vector2f(rectangleLeft, rectangleTop); // TOP LEFT
     trianglesVertices[5].color = sf::Color::Red;
 
     // Shader Object
@@ -55,8 +63,11 @@ int main()
 
     // Transmettre nos variables uniformes
     // au shader
-    shaderObj.setUniform("top", 250.0f);
-    shaderObj.setUniform("height", 200.0f);
+    shaderObj.setUniform("top", rectangleTop);
+    shaderObj.setUniform("height", rectangleHeight);
+    // shaderObj.setUniform("splitRatio", 0.75f);
+    shaderObj.setUniform("left", rectangleLeft);
+    shaderObj.setUniform("width", rectangleWidth);
     
     sf::RenderStates renderStates;
     renderStates.shader = &shaderObj;
