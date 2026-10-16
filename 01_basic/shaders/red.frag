@@ -24,7 +24,19 @@ void main()
     float normalizedX = (position.x - left) / width;
     // float blend = (normalizedY + normalizedX) / 2.0;
     // float blend = normalizedX * 0.8 + normalizedY * 0.2;
-    float blend = normalizedX * 1.2 + normalizedY * 0.2;
+    // float blend = normalizedX * 1.2 + normalizedY * 0.2;
+    // float blend = normalizedX * normalizedX;
+    // float blend = sqrt(normalizedX);
+    // float blend = 1.0 - normalizedX;
+    // float blend = ((1.0 - normalizedX) + normalizedY) / 2.0;
+    // float blend = ((1.0 - normalizedX) * 0.8
+    //     + normalizedY * 0.2);
+    float blend = smoothstep(
+        0.0,
+        1.0,
+        (1.0 - normalizedX) * 0.8 + normalizedY * 0.2
+    );
+
     float clamped = clamp(blend, 0.0, 1.0);
 
 
@@ -56,6 +68,31 @@ void main()
     // );
 
     // Mélange du dégradé vertical et horizontal
+    // gl_FragColor = mix(
+    //     vec4(0.0, 0.0, 1.0, 1.0),
+    //     vec4(1.0, 0.0, 0.0, 1.0),
+    //     clamped
+    // );
+
+    // Dégradé de 3 couleurs (BGR)
+    // gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    // if (clamped < 0.4)
+    // {
+    //     gl_FragColor = mix(
+    //         vec4(0.0, 0.0, 1.0, 1.0),
+    //         vec4(0.0, 1.0, 0.0, 1.0),
+    //         clamped / 0.4
+    //     );
+    // }
+    // else 
+    // {
+    //     gl_FragColor = mix(
+    //         vec4(0.0, 1.0, 0.0, 1.0),
+    //         vec4(1.0, 0.0, 0.0, 1.0),
+    //         (clamped - 0.4) / 0.6
+    //     );
+    // }
+
     gl_FragColor = mix(
         vec4(0.0, 0.0, 1.0, 1.0),
         vec4(1.0, 0.0, 0.0, 1.0),
